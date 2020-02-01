@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "nama": "Restu Utami",
+        "jk": "perempuan",
+        "usia": 25,
+        "nik": "3326160101810021",
+        "alamat": "Jr. Ciwastra No. 414, Administrasi Jakarta Utara 26019, KalTim",
+        "noTelp": "0330 7956 1583",
+        "tglDaftar": "4 April 2000",
+        "jenPeriksa": "rawat jalan"
+    },
+    {
+        "id": 2,
+        "nama": "Nurul Mandasari",
+        "jk": "perempuan",
+        "usia": 43,
+        "nik": "3326164107570382",
+        "alamat": "Ds. Krakatau No. 625, Administrasi Jakarta Pusat 17202, Gorontalo",
+        "noTelp": "0562 3376 897",
+        "tglDaftar": "4 January 2005",
+        "jenPeriksa": "rawat inap"
+    },
+    {
+        "id": 3,
+        "nama": "Garda Sihombing",
+        "jk": "laki-laki",
+        "usia": 34,
+        "nik": "3326164511690002",
+        "alamat": "Ki. Madiun No. 956, Tanjung Pinang 52675, Banten",
+        "noTelp": "0682 8935 9833",
+        "tglDaftar": "18 November 2005",
+        "jenPeriksa": "rawat jalan"
+    },
+    {
+        "id": 4,
+        "nama": "Mahesa Rajata",
+        "jk": "laki-laki",
+        "usia": 15,
+        "nik": "3326161509700004",
+        "alamat": "Jln. Abdul Rahmat No. 531, Subulussalam 48193, KalBar",
+        "noTelp": "0528 2117 2524",
+        "tglDaftar": "26 July 2011",
+        "jenPeriksa": "rawat inap"
+    },
+    {
+        "id": 5,
+        "nama": "Bakiman Hasan Hidayanto",
+        "jk": "laki-laki",
+        "usia": 60,
+        "nik": "3326161808790021",
+        "alamat": "Ki. Ters. Jakarta No. 93, Banjarmasin 39637, SumUt",
+        "noTelp": "0824 3964 532",
+        "tglDaftar": "2 July 2018",
+        "jenPeriksa": "rawat jalan"
+    }
+]
