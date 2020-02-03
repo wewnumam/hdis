@@ -20,7 +20,10 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "express-json-file-crud": "0.0.5"
+    "express-json-file-crud": "0.0.5",
+    "handlebars-helpers": "^0.10.0",
+    "method-override": "^3.0.0",
+    "remove": "^0.1.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
