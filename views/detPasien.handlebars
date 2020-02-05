@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover border-0">
+                    <tr>
+                        <th scope="col">Nama</th>
+                        <td>{{#each pasien}}{{ nama }}{{/each}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Jenis Kelamain</th>
+                        <td>{{#each pasien}}{{ jk }}{{/each}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Usia</th>
+                        <td>{{#each pasien}}{{ usia }}{{/each}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">NIK</th>
+                        <td>{{#each pasien}}{{ nik }}{{/each}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Alamat</th>
+                        <td>{{#each pasien}}{{ alamat }}{{/each}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">No. Telepon</th>
+                        <td>{{#each pasien}}{{ noTelp }}{{/each}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Tanggal Daftar</th>
+                        <td>{{#each pasien}}{{ tglDaftar }}{{/each}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Jenis Pemeriksaan</th>
+                        <td>{{#each pasien}}{{ jenPeriksa }}{{/each}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Ubah</h6>
+            </div>
+            <div class="card-body">
+                {{#each pasien}}
+                <form action="/pasien/{{id}}?_method=PUT" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label>ID</label>
+                            <input type="text" name="id" class="form-control" placeholder="ID" autocomplete="off" value="{{ id }}" readonly>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Usia</label>
+                            <input type="text" name="usia" class="form-control" placeholder="usia" autocomplete="off" value="{{ usia }}">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Nama</label>
+                            <input type="text" name="nama" class="form-control" placeholder="nama" autocomplete="off" value="{{ nama }}">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>NIK</label>
+                            <input type="text" name="nik" class="form-control" placeholder="NIK" autocomplete="off" value="{{ nik }}">
+                        </div> 
+                        <div class="form-group col-12">
+                            <label>Jenis Kelamin</label>
+                            <div>
+                                <div class="form-check form-check-inline mt-2 ml-2">
+                                    <input class="form-check-input" type="radio" name="jk" value="laki-laki">
+                                    <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
+                                </div>
+                                <div class="form-check form-check-inline mt-2 ml-2">
+                                    <input class="form-check-input" type="radio" name="jk" value="perempuan">
+                                    <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Alamat</label>
+                            <textarea name="alamat" class="form-control">{{ alamat }}</textarea>
+                        </div>
+                        <div class="form-group col-12">
+                            <label>No. Telepon</label>
+                            <input type="text" name="noTelp" class="form-control" placeholder="no telepon"
+                                autocomplete="off" value="{{ noTelp }}">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Tanggal Daftar</label>
+                            <input type="text" name="tglDaftar" class="form-control" placeholder="tanggal daftar"
+                                autocomplete="off" value="{{ tglDaftar }}">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Jenis Pemeriksaan</label>
+                            <select name="jenPeriksa" class="form-control">
+                                <option selected>Pilih...</option>
+                                <option value="rawat jalan">Rawat Jalan</option>
+                                <option value="rawat inap">Rawat Inap</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="submit" value="Ubah" class="btn btn-primary btn-block mt-3">
+                </form>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

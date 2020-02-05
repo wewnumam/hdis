@@ -3,9 +3,19 @@ const path           = require('path')
 const xphbs          = require('express-handlebars')
 const app            = express()
 const port           = 8000
-const makeCrud       = require('express-json-file-crud').makeCrud
 const methodOverride = require('method-override')
-const pasien         = require('./data/pasien')
+const mongoose       = require('mongoose')
+
+// connect to mongodb
+mongoose
+    .connect('mongodb://localhost:27017/rumahsakit',  {
+        useNewUrlParser   : true,
+        useFindAndModify  : false,
+        useCreaitteIndex    : true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log("mongodb connected!"))
+    .catch((err) => console.log(err))
 
 // override method
 app.use(methodOverride('_method'))
@@ -13,7 +23,7 @@ app.use(methodOverride('_method'))
 // body perse middleware
 app.use(express.json())
 app.use(express.urlencoded({
-    extended: false
+    extended: true
 }))
 
 // handlebars middleware
@@ -26,37 +36,18 @@ app.engine('handlebars', xphbs({
             rvalue  = parseFloat(rvalue)
             percent = lvalue / rvalue * 100
             return percent
+        },
+        incremented: function (index) {
+            index++;
+            return index;
         }
     }
 }))
 app.set('view engine', 'handlebars')
 
-// crud routes
-app.use('/pasien', makeCrud('pasien', './data'))
-
-// url controller
-app.get('/', (req, res) => {
-    res.render('dashboard', {
-        title   : 'Dashboard',
-        pasien  : pasien.length,
-        pasienLk: pasien.filter(a => a.jk == 'laki-laki').length,
-        pasienPr: pasien.filter(a => a.jk == 'perempuan').length,
-        pasienRj: pasien.filter(a => a.jenPeriksa == 'rawat jalan').length,
-        pasienRi: pasien.filter(a => a.jenPeriksa == 'rawat inap').length
-    })
-})
-app.get('/users', (req, res) => {
-    res.render('users', {
-        title: 'User',
-        pasien
-    })
-})
-app.get('/users/pasien/:id', (req, res) => {
-    res.render('pasien', {
-        title : 'Detail Pasien',
-        pasien: pasien.filter(a => a.id == req.params.id)
-    })
-})
+// routes
+app.use('/pasien', require('./routes/pasien'))
+app.use('/', require('./routes/dashboard'))
 
 // static file
 app.use(express.static(path.join(__dirname, 'public')))
