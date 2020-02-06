@@ -14,11 +14,6 @@
                     <div class="modal-content">
                         <form action="/pasien" method="post" class="m-5">
                             <div class="form-row">
-                                <div class="form-group col-2">
-                                    <label>ID</label>
-                                    <input type="text" name="id" class="form-control" placeholder="ID"
-                                        autocomplete="off">
-                                </div>
                                 <div class="form-group col-10">
                                     <label>Nama</label>
                                     <input type="text" name="nama" class="form-control" placeholder="nama"
@@ -29,12 +24,12 @@
                                     <input type="text" name="usia" class="form-control" placeholder="usia"
                                         autocomplete="off">
                                 </div>
-                                <div class="form-group col-5">
+                                <div class="form-group col-6">
                                     <label>NIK</label>
                                     <input type="text" name="nik" class="form-control" placeholder="NIK"
                                         autocomplete="off">
                                 </div>
-                                <div class="form-group col-5">
+                                <div class="form-group col-6">
                                     <label>Jenis Kelamin</label>
                                     <div>
                                         <div class="form-check form-check-inline mt-2 ml-2">
@@ -102,166 +97,6 @@
                         <a href="/pasien/{{ _id }}"><i
                                 class="float-left btn btn-sm bg-transparent fas fa-eye text-primary"></i></a>
                         <form method="POST" action="/pasien/{{ _id }}?_method=DELETE">
-                            <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
-                                    class="fas fa-trash text-danger"></i></button>
-                        </form>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-<!-- Dropdown Card Example -->
-<div class="card mb-4">
-    <!-- Card Header - Dropdown -->
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h5 class="m-0 font-weight-bold text-primary">Dokter</h5>
-        <!-- Large modal -->
-        <div class="d-sm-flex align-items-center justify-content-between">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".dokter-modal"><i
-                    class="fas fa-plus"></i> Tambah Dokter</button>
-
-            <div class="modal fade dokter-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <form action="/dokter" method="post" class="m-5">
-                            <div class="form-row">
-                                <div class="form-group col-2">
-                                    <label>ID</label>
-                                    <input type="text" name="id" class="form-control" placeholder="ID"
-                                        autocomplete="off">
-                                </div>
-                                <div class="form-group col-10">
-                                    <label>Nama</label>
-                                    <input type="text" name="nama" class="form-control" placeholder="nama"
-                                        autocomplete="off">
-                                </div>
-                                <div class="form-group col-2">
-                                    <label>No. Praktek</label>
-                                    <input type="text" name="noPraktek" class="form-control" placeholder="no praktek"
-                                        autocomplete="off">
-                                </div>
-                                <div class="form-group col-5">
-                            <label>Spesialis</label>
-                            <select name="spesialis" class="form-control">
-                                <option selected>Pilih...</option>
-                                <option value="penyakit dalam">Penyakit Dalam</option>
-                                <option value="THT">THT</option>
-                                <option value="gigi dan mulut">Gigi dan Mulut</option>
-                                <option value="kandungan">Kandungan</option>
-                                <option value="tulang">Tulang</option>
-                                <option value="anak">Anak</option>
-                                <option value="psikiater">Psikiater</option>
-                                <option value="saraf">Saraf</option>
-                                <option value="kulit dan kelamin">Kulit dan Kelamin</option>
-                            </select>
-                        </div>
-                                <div class="form-group col-5">
-                                    <label>Jenis Kelamin</label>
-                                    <div>
-                                        <div class="form-check form-check-inline mt-2 ml-2">
-                                            <input class="form-check-input" type="radio" name="jk" value="laki-laki">
-                                            <label class="form-check-label" for="inlineRadio1">Laki-laki</label>
-                                        </div>
-                                        <div class="form-check form-check-inline mt-2 ml-2">
-                                            <input class="form-check-input" type="radio" name="jk" value="perempuan">
-                                            <label class="form-check-label" for="inlineRadio2">Perempuan</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-12">
-                                    <label>Alamat</label>
-                                    <input type="text" name="alamat" class="form-control" placeholder="alamat"
-                                        autocomplete="off">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label>No. Telepon</label>
-                                    <input type="text" name="noTelp" class="form-control"
-                                        placeholder="no telepon" autocomplete="off">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label>Jam Praktek</label>
-                                    <input type="text" name="jamPraktek" class="form-control"
-                                        placeholder="jam praktek" autocomplete="off">
-                                </div>
-                            </div>
-                            <input type="submit" value="Tambah" class="btn btn-success btn-block mt-3">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Card Body -->
-    <div class="card-body">
-        <!-- Table dokter-->
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Spesialis</th>
-                    <th scope="col">Jam Praktek</th>
-                    <th scope="col">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each dokter}}
-                <tr>
-                    <th scope="col">{{ id }}</th>
-                    <td>{{ nama }}</td>
-                    <td>{{ spesialis }}</td>
-                    <td>{{ jamPraktek }}</td>
-                    <td>
-                        <a href="/users/dokter/{{ id }}"><i
-                                class="float-left btn btn-sm bg-transparent fas fa-eye text-primary"></i></a>
-                        <form method="POST" action="/dokter/{{ id }}?_method=DELETE">
-                            <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
-                                    class="fas fa-trash text-danger"></i></button>
-                        </form>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-<!-- Dropdown Card Example -->
-<div class="card mb-4">
-    <!-- Card Header - Dropdown -->
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h5 class="m-0 font-weight-bold text-primary">Perawat</h5>
-    </div>
-    <!-- Card Body -->
-    <div class="card-body">
-        <!-- Table pasien-->
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Kode Ruang</th>
-                    <th scope="col">Jam Jaga</th>
-                    <th scope="col">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each perawat}}
-                <tr>
-                    <th scope="col">{{ id }}</th>
-                    <td>{{ nama }}</td>
-                    <td>{{ kodeRuang }}</td>
-                    <td>{{ jamJaga }}</td>
-                    <td>
-                        <a href="/users/pasien/{{ id }}"><i
-                                class="float-left btn btn-sm bg-transparent fas fa-eye text-primary"></i></a>
-                        <form method="POST" action="/pasien/{{ id }}?_method=DELETE">
                             <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
                                     class="fas fa-trash text-danger"></i></button>
                         </form>

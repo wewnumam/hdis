@@ -2,44 +2,39 @@
 <div class="card mb-4">
     <!-- Card Header - Dropdown -->
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-        <h5 class="m-0 font-weight-bold text-primary">Dokter</h5>
-        <!-- Large modal -->
+        <h5 class="m-0 font-weight-bold text-primary">Perawat</h5>
+         <!-- Large modal -->
         <div class="d-sm-flex align-items-center justify-content-between">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".dokter-modal"><i
-                    class="fas fa-plus"></i> Tambah Dokter</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".perawat-modal"><i
+                    class="fas fa-plus"></i> Tambah Perawat</button>
 
-            <div class="modal fade dokter-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            <div class="modal fade perawat-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
-                        <form action="/dokter" method="post" class="m-5">
+                        <form action="/perawat" method="post" class="m-5">
                             <div class="form-row">
-                                <div class="form-group col-10">
+                                <div class="form-group col-8">
                                     <label>Nama</label>
                                     <input type="text" name="nama" class="form-control" placeholder="nama"
                                         autocomplete="off">
                                 </div>
+                                <div class="form-group col-4">
+                                    <label>Jam Jaga</label>
+                                    <input type="text" name="jamJaga" class="form-control"
+                                        placeholder="jam jaga" autocomplete="off">
+                                </div>
                                 <div class="form-group col-2">
-                                    <label>No. Praktek</label>
-                                    <input type="text" name="noPraktek" class="form-control" placeholder="no praktek"
+                                    <label>Kode Ruang</label>
+                                    <input type="text" name="kodeRuang" class="form-control" placeholder="kode ruang"
                                         autocomplete="off">
                                 </div>
-                                <div class="form-group col-6">
-                            <label>Spesialis</label>
-                            <select name="spesialis" class="form-control">
-                                <option selected>Pilih...</option>
-                                <option value="penyakit dalam">Penyakit Dalam</option>
-                                <option value="THT">THT</option>
-                                <option value="gigi dan mulut">Gigi dan Mulut</option>
-                                <option value="kandungan">Kandungan</option>
-                                <option value="tulang">Tulang</option>
-                                <option value="anak">Anak</option>
-                                <option value="psikiater">Psikiater</option>
-                                <option value="saraf">Saraf</option>
-                                <option value="kulit dan kelamin">Kulit dan Kelamin</option>
-                            </select>
-                        </div>
-                                <div class="form-group col-6">
+                                <div class="form-group col-5">
+                                    <label>No. Telepon</label>
+                                    <input type="text" name="noTelp" class="form-control"
+                                        placeholder="no telepon" autocomplete="off">
+                                </div>
+                                <div class="form-group col-5">
                                     <label>Jenis Kelamin</label>
                                     <div>
                                         <div class="form-check form-check-inline mt-2 ml-2">
@@ -57,16 +52,6 @@
                                     <input type="text" name="alamat" class="form-control" placeholder="alamat"
                                         autocomplete="off">
                                 </div>
-                                <div class="form-group col-6">
-                                    <label>No. Telepon</label>
-                                    <input type="text" name="noTelp" class="form-control"
-                                        placeholder="no telepon" autocomplete="off">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label>Jam Praktek</label>
-                                    <input type="text" name="jamPraktek" class="form-control"
-                                        placeholder="jam praktek" autocomplete="off">
-                                </div>
                             </div>
                             <input type="submit" value="Tambah" class="btn btn-success btn-block mt-3">
                         </form>
@@ -77,28 +62,28 @@
     </div>
     <!-- Card Body -->
     <div class="card-body">
-        <!-- Table dokter-->
+        <!-- Table pasien-->
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Spesialis</th>
-                    <th scope="col">Jam Praktek</th>
+                    <th scope="col">Kode Ruang</th>
+                    <th scope="col">Jam Jaga</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                {{#each dokter}}
+                {{#each perawat}}
                 <tr>
-                    <th scope="col">{{incremented @index}}</th>
+                    <th scope="col">{{incremented @index }}</th>
                     <td>{{ nama }}</td>
-                    <td>{{ spesialis }}</td>
-                    <td>{{ jamPraktek }}</td>
+                    <td>{{ kodeRuang }}</td>
+                    <td>{{ jamJaga }}</td>
                     <td>
-                        <a href="/dokter/{{ _id }}"><i
+                        <a href="/perawat/{{ _id }}"><i
                                 class="float-left btn btn-sm bg-transparent fas fa-eye text-primary"></i></a>
-                        <form method="POST" action="/dokter/{{ _id }}?_method=DELETE">
+                        <form method="POST" action="/perawat/{{ _id }}?_method=DELETE">
                             <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
                                     class="fas fa-trash text-danger"></i></button>
                         </form>

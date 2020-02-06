@@ -5,9 +5,9 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
             </div>
+            {{#each perawat}}
             <div class="card-body">
                 <table class="table table-hover border-0">
-                    {{#each pasien}}
                     <tr>
                         <th scope="col">Nama</th>
                         <td>{{ nama }}</td>
@@ -17,12 +17,12 @@
                         <td>{{ jk }}</td>
                     </tr>
                     <tr>
-                        <th scope="col">Usia</th>
-                        <td>{{ usia }}</td>
+                        <th scope="col">Kode Ruang</th>
+                        <td>{{ kodeRuang }}</td>
                     </tr>
                     <tr>
-                        <th scope="col">NIK</th>
-                        <td>{{ nik }}</td>
+                        <th scope="col">Jam Jaga</th>
+                        <td>{{ jamJaga }}</td>
                     </tr>
                     <tr>
                         <th scope="col">Alamat</th>
@@ -32,16 +32,8 @@
                         <th scope="col">No. Telepon</th>
                         <td>{{ noTelp }}</td>
                     </tr>
-                    <tr>
-                        <th scope="col">Tanggal Daftar</th>
-                        <td>{{ tglDaftar }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Jenis Pemeriksaan</th>
-                        <td>{{ jenPeriksa }}</td>
-                    </tr>
-                    {{/each}}
                 </table>
+                {{/each}}
             </div>
         </div>
     </div>
@@ -52,16 +44,18 @@
                 <h6 class="m-0 font-weight-bold text-primary">Ubah</h6>
             </div>
             <div class="card-body">
-                {{#each pasien}}
-                <form action="/pasien/{{ _id }}?_method=PATCH" method="post">
+                {{#each perawat}}
+                <form action="/perawat/{{_id}}?_method=PATCH" method="post">
                     <div class="form-row">
                         <div class="form-group col-12">
                             <label>Nama</label>
-                            <input type="text" name="nama" class="form-control" placeholder="nama" autocomplete="off" value="{{ nama }}">
+                            <input type="text" name="nama" class="form-control" placeholder="nama" autocomplete="off"
+                                value="{{ nama }}">
                         </div>
                         <div class="form-group col-6">
-                            <label>Usia</label>
-                            <input type="text" name="usia" class="form-control" placeholder="usia" autocomplete="off" value="{{ usia }}">
+                            <label>Kode Ruang</label>
+                            <input type="text" name="kodeRuang" class="form-control" placeholder="kode ruang"
+                                autocomplete="off" value="{{ kodeRuang }}">
                         </div>
                         <div class="form-group col-6">
                             <label>Jenis Kelamin</label>
@@ -77,10 +71,6 @@
                             </div>
                         </div>
                         <div class="form-group col-12">
-                            <label>NIK</label>
-                            <input type="text" name="nik" class="form-control" placeholder="NIK" autocomplete="off" value="{{ nik }}">
-                        </div> 
-                        <div class="form-group col-12">
                             <label>Alamat</label>
                             <textarea name="alamat" class="form-control">{{ alamat }}</textarea>
                         </div>
@@ -90,17 +80,9 @@
                                 autocomplete="off" value="{{ noTelp }}">
                         </div>
                         <div class="form-group col-12">
-                            <label>Tanggal Daftar</label>
-                            <input type="text" name="tglDaftar" class="form-control" placeholder="tanggal daftar"
-                                autocomplete="off" value="{{ tglDaftar }}">
-                        </div>
-                        <div class="form-group col-12">
-                            <label>Jenis Pemeriksaan</label>
-                            <select name="jenPeriksa" class="form-control">
-                                <option selected>Pilih...</option>
-                                <option value="rawat jalan">Rawat Jalan</option>
-                                <option value="rawat inap">Rawat Inap</option>
-                            </select>
+                            <label>Jam Jaga</label>
+                            <input type="text" name="jamJaga" class="form-control" placeholder="jam jaga"
+                                autocomplete="off" value="{{ jamJaga }}">
                         </div>
                     </div>
                     <input type="submit" value="Ubah" class="btn btn-primary btn-block mt-3">

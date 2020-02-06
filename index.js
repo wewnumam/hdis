@@ -1,21 +1,21 @@
-const express        = require('express')
-const path           = require('path')
-const xphbs          = require('express-handlebars')
-const app            = express()
-const port           = 8000
+const express = require('express')
+const path = require('path')
+const xphbs = require('express-handlebars')
+const app = express()
+const port = 8000
 const methodOverride = require('method-override')
-const mongoose       = require('mongoose')
+const mongoose = require('mongoose')
 
 // connect to mongodb
-mongoose
-    .connect('mongodb://localhost:27017/rumahsakit',  {
-        useNewUrlParser   : true,
-        useFindAndModify  : false,
-        useCreaitteIndex    : true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log("mongodb connected!"))
-    .catch((err) => console.log(err))
+mongoose.connect('mongodb://localhost:27017/rumahsakit', {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreaitteIndex: true,
+    useUnifiedTopology: true
+})
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('connected to database'))
 
 // override method
 app.use(methodOverride('_method'))
@@ -29,11 +29,11 @@ app.use(express.urlencoded({
 // handlebars middleware
 app.engine('handlebars', xphbs({
     defaultLayout: 'main',
-    helpers      : {
+    helpers: {
         // Function to do basic mathematical operation in handlebar
         persen: function (lvalue, rvalue) {
-            lvalue  = parseFloat(lvalue)
-            rvalue  = parseFloat(rvalue)
+            lvalue = parseFloat(lvalue)
+            rvalue = parseFloat(rvalue)
             percent = lvalue / rvalue * 100
             return percent
         },
@@ -46,8 +46,10 @@ app.engine('handlebars', xphbs({
 app.set('view engine', 'handlebars')
 
 // routes
-app.use('/pasien', require('./routes/pasien'))
 app.use('/', require('./routes/dashboard'))
+app.use('/pasien', require('./routes/pasien'))
+app.use('/dokter', require('./routes/dokter'))
+app.use('/perawat', require('./routes/perawat'))
 
 // static file
 app.use(express.static(path.join(__dirname, 'public')))
