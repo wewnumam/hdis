@@ -50,6 +50,8 @@ app.use('/', require('./routes/dashboard'))
 app.use('/pasien', require('./routes/pasien'))
 app.use('/dokter', require('./routes/dokter'))
 app.use('/perawat', require('./routes/perawat'))
+app.use('/obat', require('./routes/obat'))
+app.use('/ruangan', require('./routes/ruangan'))
 
 // static file
 app.use(express.static(path.join(__dirname, 'public')))

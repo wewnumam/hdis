@@ -1,0 +1,97 @@
+<!-- Dropdown Card Example -->
+<div class="card mb-4">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h5 class="m-0 font-weight-bold text-danger">Ruangan</h5>
+         <!-- Large modal -->
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".ruangan-modal"><i
+                    class="fas fa-plus"></i> Tambah Ruangan</button>
+
+            <div class="modal fade ruangan-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/ruangan" method="post" class="m-5">
+                            <div class="form-row">
+                                <div class="form-group col-8">
+                                    <label>Nama</label>
+                                    <select name="nama" class="form-control">
+                                        <option selected>Pilih...</option>
+                                        <option value="ICU">Unit Perawatan Intensif (ICU)</option>
+                                        <option value="NCU">Unit Perawatan Intensif Neonatal (NCU)</option>
+                                        <option value="PICU">Unit Perawatan Intensif Anak (PICU)</option>
+                                        <option value="CCU">Unit Perawatan Koroner (CCU)</option>
+                                        <option value="PACU">Unit Perawatan Pasca-anestasi (PACU)</option>
+                                        <option value="HDU">High Dependency Unit (HDU)</option>
+                                        <option value="SICU">Unit Perawatan Instensif Bedah (SICU)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Kelas</label>
+                                    <select name="kelas" class="form-control">
+                                        <option selected>Pilih...</option>
+                                        <option value="I">I</option>
+                                        <option value="II">II</option>
+                                        <option value="III">III</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>No. Kamar</label>
+                                    <input type="text" name="noKamar" class="form-control"
+                                        placeholder="no kamar" autocomplete="off">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Kondisi</label>
+                                    <select name="kondisi" class="form-control">
+                                        <option value="kosong">Kosong</option>
+                                        <option value="terisi">Terisi</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Tarif</label>
+                                    <input type="text" name="tarif" class="form-control" placeholder="tarif"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <input type="submit" value="Tambah" class="btn btn-success btn-block mt-3">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+        <!-- Table pasien-->
+        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">No. Kamar</th>
+                    <th scope="col">Kondisi</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each ruangan}}
+                <tr>
+                    <th scope="col">{{incremented @index }}</th>
+                    <td>{{ nama }}</td>
+                    <td>{{ noKamar }}</td>
+                    <td>{{ kondisi }}</td>
+                    <td>
+                        <a href="/ruangan/{{ _id }}"><i
+                                class="float-left btn btn-sm bg-transparent fas fa-eye text-primary"></i></a>
+                        <form method="POST" action="/ruangan/{{ _id }}?_method=DELETE">
+                            <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
+                                    class="fas fa-trash text-danger"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

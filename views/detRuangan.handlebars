@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-danger">{{ title }}</h6>
+            </div>
+            {{#each ruangan}}
+            <div class="card-body">
+                <table class="table table-hover border-0">
+                    <tr>
+                        <th scope="col">Nama</th>
+                        <td>{{ nama }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Kelas</th>
+                        <td>{{ kelas }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">No. Kamar</th>
+                        <td>{{ noKamar}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Kondisi</th>
+                        <td>{{ kondisi }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Tarif</th>
+                        <td>{{ tarif }}</td>
+                    </tr>
+                </table>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-danger">Ubah</h6>
+            </div>
+            <div class="card-body">
+                {{#each ruangan}}
+                <form action="/ruangan/{{_id}}?_method=PATCH" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label>Nama</label>
+                            <select name="nama" class="form-control">
+                                <option selected>Pilih...</option>
+                                <option value="ICU">Unit Perawatan Intensif (ICU)</option>
+                                <option value="NCU">Unit Perawatan Intensif Neonatal (NCU)</option>
+                                <option value="PICU">Unit Perawatan Intensif Anak (PICU)</option>
+                                <option value="CCU">Unit Perawatan Koroner (CCU)</option>
+                                <option value="PACU">Unit Perawatan Pasca-anestasi (PACU)</option>
+                                <option value="HDU">High Dependency Unit (HDU)</option>
+                                <option value="SICU">Unit Perawatan Instensif Bedah (SICU)</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Kelas</label>
+                            <select name="kelas" class="form-control">
+                                <option selected>Pilih...</option>
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>No. Kamar</label>
+                            <input type="text" name="noKamar" class="form-control" placeholder="no kamar"
+                                autocomplete="off" value="{{ noKamar }}">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Kondisi</label>
+                            <select name="kondisi" class="form-control">
+                                <option value="kosong">Kosong</option>
+                                <option value="terisi">Terisi</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Tarif</label>
+                            <input type="text" name="tarif" class="form-control" placeholder="tarif" autocomplete="off" value="{{ tarif }}">
+                        </div>
+                    </div>
+                    <input type="submit" value="Ubah" class="btn btn-primary btn-block mt-3">
+                </form>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

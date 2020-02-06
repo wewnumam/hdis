@@ -1,0 +1,88 @@
+<!-- Dropdown Card Example -->
+<div class="card mb-4">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h5 class="m-0 font-weight-bold text-danger">Obat</h5>
+         <!-- Large modal -->
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".obat-modal"><i
+                    class="fas fa-plus"></i> Tambah Obat</button>
+
+            <div class="modal fade obat-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/obat" method="post" class="m-5">
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label>Nama</label>
+                                    <input type="text" name="nama" class="form-control" placeholder="nama"
+                                        autocomplete="off">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Golongan</label>
+                                    <input type="text" name="golongan" class="form-control"
+                                        placeholder="golongan" autocomplete="off">
+                                </div>
+                                <div class="form-group col-2">
+                                    <label>Kategori</label>
+                                    <input type="text" name="kategori" class="form-control" placeholder="kategori"
+                                        autocomplete="off">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Expired</label>
+                                    <input type="text" name="tglExp" class="form-control"
+                                        placeholder="expired" autocomplete="off">
+                                </div>
+                                <div class="form-group col-2">
+                                    <label>Jumlah</label>
+                                    <input type="text" name="jumlah" class="form-control" placeholder="jumlah"
+                                        autocomplete="off">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Harga</label>
+                                    <input type="text" name="harga" class="form-control" placeholder="harga"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <input type="submit" value="Tambah" class="btn btn-success btn-block mt-3">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+        <!-- Table pasien-->
+        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Golongan</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each obat}}
+                <tr>
+                    <th scope="col">{{incremented @index }}</th>
+                    <td>{{ nama }}</td>
+                    <td>{{ golongan }}</td>
+                    <td>{{ jumlah }}</td>
+                    <td>
+                        <a href="/obat/{{ _id }}"><i
+                                class="float-left btn btn-sm bg-transparent fas fa-eye text-primary"></i></a>
+                        <form method="POST" action="/obat/{{ _id }}?_method=DELETE">
+                            <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
+                                    class="fas fa-trash text-danger"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

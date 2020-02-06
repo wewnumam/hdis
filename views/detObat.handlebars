@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-danger">{{ title }}</h6>
+            </div>
+            {{#each obat}}
+            <div class="card-body">
+                <table class="table table-hover border-0">
+                    <tr>
+                        <th scope="col">Nama</th>
+                        <td>{{ nama }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Kategori</th>
+                        <td>{{ kategori }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Golongan</th>
+                        <td>{{ golongan}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Kadaluwarsa</th>
+                        <td>{{ tglExp }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Harga</th>
+                        <td>{{ harga }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Jumlah</th>
+                        <td>{{ jumlah }}</td>
+                    </tr>
+                </table>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-danger">Ubah</h6>
+            </div>
+            <div class="card-body">
+                {{#each obat}}
+                <form action="/obat/{{_id}}?_method=PATCH" method="post">
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label>Nama</label>
+                            <input type="text" name="nama" class="form-control" placeholder="nama" autocomplete="off" value="{{ nama }}">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Golongan</label>
+                            <input type="text" name="golongan" class="form-control" placeholder="golongan"
+                                autocomplete="off" value="{{ golongan }}">
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Kategori</label>
+                            <input type="text" name="kategori" class="form-control" placeholder="kategori"
+                                autocomplete="off" value="{{ kategori }}">
+                        </div>
+                        <div class="form-group col-8">
+                            <label>Expired</label>
+                            <input type="text" name="tglExp" class="form-control" placeholder="expired"
+                                autocomplete="off" value="{{ tglExp }}">
+                        </div>
+                        <div class="form-group col-4">
+                            <label>Jumlah</label>
+                            <input type="text" name="jumlah" class="form-control" placeholder="jumlah"
+                                autocomplete="off" value="{{ jumlah }}">
+                        </div>
+                        <div class="form-group col-8">
+                            <label>Harga</label>
+                            <input type="text" name="harga" class="form-control" placeholder="harga" autocomplete="off" value="{{ harga }}">
+                        </div>
+                    </div>
+                    <input type="submit" value="Ubah" class="btn btn-primary btn-block mt-3">
+                </form>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
