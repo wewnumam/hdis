@@ -46,15 +46,15 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#useract"
+                    aria-expanded="true" aria-controls="useract">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Username</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                <div id="useract" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="">Logout</a>
+                        <a class="collapse-item" href=""><i class="fas fa-sign-in-alt"></i> Logout</a>
                     </div>
                 </div>
             </li>
@@ -64,21 +64,38 @@
                 <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
-                <a class="nav-link" href="/pasien">
-                    <i class="fas fa-fw fa-bed"></i>
-                    <span>Pasien</span></a>
-                <a class="nav-link" href="/dokter">
-                    <i class="fas fa-fw fa-user-md"></i>
-                    <span>Dokter</span></a>
-                <a class="nav-link" href="/perawat">
-                    <i class="fas fa-fw fa-user-nurse"></i>
-                    <span>Perawat</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pengguna"
+                    aria-expanded="true" aria-controls="pengguna">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Pengguna</span>
+                </a>
+                <div id="pengguna" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/pasien">
+                            <i class="fas fa-fw fa-bed"></i>
+                            <span>Pasien</span></a>
+                        <a class="collapse-item" href="/dokter">
+                            <i class="fas fa-fw fa-user-md"></i>
+                            <span>Dokter</span></a>
+                        <a class="collapse-item" href="/perawat">
+                            <i class="fas fa-fw fa-user-nurse"></i>
+                            <span>Perawat</span></a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/obat">
                     <i class="fas fa-fw fa-pills"></i>
                     <span>Obat</span></a>
                 <a class="nav-link" href="/ruangan">
                     <i class="fas fa-fw fa-person-booth"></i>
                     <span>Ruangan</span></a>
+                <a class="nav-link" href="/tindakan">
+                    <i class="fas fa-fw fa-running"></i>
+                    <span>Tindakan</span></a>
             </li>
         </ul>
         <!-- End of Sidebar -->

@@ -1,0 +1,92 @@
+<!-- Dropdown Card Example -->
+<div class="card mb-4">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h5 class="m-0 font-weight-bold text-danger">Tindakan</h5>
+        <!-- Large modal -->
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".tindakan-modal"><i
+                    class="fas fa-plus"></i> Tambah Tindakan</button>
+
+            <div class="modal fade tindakan-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/tindakan" method="post" class="m-5">
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label>Nama</label>
+                                    <input type="text" name="nama" class="form-control" placeholder="nama"
+                                        autocomplete="off">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Biaya</label>
+                                    <input type="text" name="biaya" class="form-control" placeholder="biaya"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <input type="submit" value="Tambah" class="btn btn-success btn-block mt-3">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+        <!-- Table pasien-->
+        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Biaya</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each tindakan}}
+                <tr>
+                    <th scope="col">{{incremented @index }}</th>
+                    <td>{{ nama }}</td>
+                    <td>{{ biaya }}</td>
+                    <td>
+                        <!-- Large modal -->
+                        <div class="d-sm-flex align-items-center justify-content-between float-left">
+                            <button type="button" class="btn btn-sm bg-transparent" data-toggle="modal"
+                                data-target=".tindakan2-modal"><i class="fas fa-pen text-primary"></i></button>
+
+                            <div class="modal fade tindakan2-modal" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <form action="/tindakan/{{ _id }}?_method=PATCH" method="post" class="m-5">
+                                            <div class="form-row">
+                                                <div class="form-group col-6">
+                                                    <label>Nama</label>
+                                                    <input type="text" name="nama" class="form-control"
+                                                        placeholder="nama" autocomplete="off" value="{{ nama }}">
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <label>Biaya</label>
+                                                    <input type="text" name="biaya" class="form-control"
+                                                        placeholder="biaya" autocomplete="off" value="{{ biaya }}">
+                                                </div>
+                                            </div>
+                                            <input type="submit" value="Ubah" class="btn btn-success btn-block mt-3">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form method="POST" action="/tindakan/{{ _id }}?_method=DELETE">
+                            <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
+                                    class="fas fa-trash text-danger"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
