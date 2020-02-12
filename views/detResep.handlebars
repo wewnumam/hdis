@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-danger">{{ title }}</h6>
+            </div>
+            {{#each resep}}
+            <div class="card-body">
+                <table class="table table-hover border-0">
+                    <tr>
+                        <th scope="col">Tanggal Resep</th>
+                        <td>{{ tglResep}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Kode Pasien</th>
+                        <td><a href="/pasien/{{ kodePasien }}">{{ kodePasien }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Kode Dokter</th>
+                        <td><a href="/dokter/{{ kodeDokter }}">{{ kodeDokter }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Kode Obat</th>
+                        <td><a href="/obat/{{ kodeObat }}">{{ kodeObat }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Aturan Pakai</th>
+                        <td>{{ pakai }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Harga</th>
+                        <td>{{ harga }}</td>
+                    </tr>
+                </table>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <!-- Basic Card Example -->
+        <div class="card mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-danger">Ubah</h6>
+            </div>
+            <div class="card-body">
+                <form action="/resep/{{#each resep}}{{_id}}{{/each}}?_method=PATCH" method="post">
+                    <div class="form-group col-12">
+                        <label>Pasien</label>
+                        <select name="kodePasien" class="form-control">
+                            <option selected>Pilih...</option>
+                            {{#each pasien}}
+                            <option value="{{ _id }}">{{ nama }}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Dokter</label>
+                        <select name="kodeDokter" class="form-control">
+                            <option selected>Pilih...</option>
+                            {{#each dokter}}
+                            <option value="{{ _id }}">{{ nama }}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Obat</label>
+                        <select name="kodeObat" class="form-control">
+                            <option selected>Pilih...</option>
+                            {{#each obat}}
+                            <option value="{{ _id }}">{{ nama }}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Tangggal Resep</label>
+                        <input type="text" name="tglResep" class="form-control" placeholder="tanggal resep"
+                            autocomplete="off" value="{{#each resep}}{{ tglResep }}{{/each}}">
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Aturan Pakai</label>
+                        <input type="text" name="pakai" class="form-control" placeholder="aturan pakai"
+                            autocomplete="off" value="{{#each resep}}{{ pakai }}{{/each}}">
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Harga</label>
+                        <input type="text" name="harga" class="form-control" placeholder="harga" autocomplete="off"
+                            value="{{#each resep}}{{ harga }}{{/each}}">
+                    </div>
+                    <input type="submit" value="Ubah" class="btn btn-primary btn-block mt-3">
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>

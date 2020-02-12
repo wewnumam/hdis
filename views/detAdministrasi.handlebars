@@ -5,40 +5,36 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-danger">{{ title }}</h6>
             </div>
-            {{#each diagnosa}}
+            {{#each administrasi}}
             <div class="card-body">
                 <table class="table table-hover border-0">
                     <tr>
-                        <th scope="col">Tanggal Periksa</th>
-                        <td>{{ tglPeriksa }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Hasil</th>
-                        <td>{{ hasil }}</td>
+                        <th scope="col">Tanggal Administrasi</th>
+                        <td>{{ tglAdmin }}</td>
                     </tr>
                     <tr>
                         <th scope="col">Kode Pasien</th>
                         <td><a href="/pasien/{{ kodePasien }}">{{ kodePasien }}</a></td>
                     </tr>
                     <tr>
-                        <th scope="col">Kode Dokter</th>
-                        <td><a href="/dokter/{{ kodeDokter }}">{{ kodeDokter }}</a></td>
+                        <th scope="col">Kode Resep</th>
+                        <td><a href="/resep/{{ kodeResep }}">{{ kodeResep }}</a></td>
                     </tr>
                     <tr>
                         <th scope="col">Kode Obat</th>
                         <td><a href="/obat/{{ kodeObat }}">{{ kodeObat }}</a></td>
                     </tr>
                     <tr>
-                        <th scope="col">Kode Tindakan</th>
-                        <td><a href="/tindakan">{{ kodeTindakan }}</a></td>
+                        <th scope="col">Kode Diagnosa</th>
+                        <td><a href="/diagnosa/{{ kodeDiagnosa }}">{{ kodeDiagnosa }}</a></td>
                     </tr>
                     <tr>
-                        <th scope="col">Kode Ruangan</th>
-                        <td><a href="/ruangan/{{ kodeRuangan }}">{{ kodeRuangan }}</a></td>
+                        <th scope="col">Lama Menginap</th>
+                        <td>{{ lamaInap }}</td>
                     </tr>
                     <tr>
-                        <th scope="col">Status</th>
-                        <td>{{ status }}</td>
+                        <th scope="col">Biaya</th>
+                        <td>{{ biaya }}</td>
                     </tr>
                 </table>
                 {{/each}}
@@ -52,31 +48,18 @@
                 <h6 class="m-0 font-weight-bold text-danger">Ubah</h6>
             </div>
             <div class="card-body">
-                <form action="/diagnosa/{{#each diagnosa}}{{_id}}{{/each}}?_method=PATCH" method="post">
+                <form action="/administrasi/{{#each administrasi}}{{_id}}{{/each}}?_method=PATCH" method="post">
                     <div class="form-row">
                         <div class="form-group col-12">
-                            <label>Tangggal Periksa</label>
-                            <input type="text" name="tglPeriksa" class="form-control" placeholder="tanggal periksa"
-                                autocomplete="off" value="{{#each diagnosa}}{{ tglPeriksa }}{{/each}}">
-                        </div>
-                        <div class="form-group col-12">
-                            <label>Hasil</label>
-                            <input type="text" name="hasil" class="form-control" placeholder="hasil" autocomplete="off" value="{{#each diagnosa}}{{ hasil }}{{/each}}">
+                            <label>Tangggal Administrasi</label>
+                            <input type="text" name="tglAdmin" class="form-control" placeholder="tanggal Rekam Medis"
+                                autocomplete="off" value="{{#each administrasi}}{{ tglAdmin}}{{/each}}">
                         </div>
                         <div class="form-group col-12">
                             <label>Pasien</label>
                             <select name="kodePasien" class="form-control">
                                 <option selected>Pilih...</option>
                                 {{#each pasien}}
-                                <option value="{{ _id }}">{{ nama }}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <div class="form-group col-12">
-                            <label>Dokter</label>
-                            <select name="kodeDokter" class="form-control">
-                                <option selected>Pilih...</option>
-                                {{#each dokter}}
                                 <option value="{{ _id }}">{{ nama }}</option>
                                 {{/each}}
                             </select>
@@ -90,31 +73,33 @@
                                 {{/each}}
                             </select>
                         </div>
-                        <div class="form-group col-12">
-                            <label>Tindakan</label>
-                            <select name="kodeTindakan" class="form-control">
+                         <div class="form-group col-12">
+                            <label>Resep</label>
+                            <select name="kodeResep" class="form-control">
                                 <option selected>Pilih...</option>
-                                {{#each tindakan}}
-                                <option value="{{ _id }}">{{ nama }}</option>
+                                {{#each resep}}
+                                <option value="{{ _id }}">{{ tglResep }}</option>
                                 {{/each}}
                             </select>
                         </div>
                         <div class="form-group col-12">
-                            <label>Ruangan</label>
-                            <select name="kodeRuangan" class="form-control">
+                            <label>Diagnosa</label>
+                            <select name="kodeDiagnosa" class="form-control">
                                 <option selected>Pilih...</option>
-                                {{#each ruangan}}
-                                <option value="{{ _id }}">{{ nama }}</option>
+                                {{#each diagnosa}}
+                                <option value="{{ _id }}">{{ tglPeriksa }}</option>
                                 {{/each}}
                             </select>
                         </div>
-                        <div class="form-group col-12">
-                            <label>Status</label>
-                            <select name="status" class="form-control">
-                                <option selected>Pilih...</option>
-                                <option value="diagnosa awal">Diagnosa Awal</option>
-                                <option value="diagnosa lanjutan">Diagnosa Lanjutan</option>
-                            </select>
+                        <div class="form-group col-4">
+                            <label>Lama Inap</label>
+                            <input type="text" name="lamaInap" class="form-control" placeholder="hari"
+                                autocomplete="off" value="{{#each administrasi}}{{ lamaInap }}{{/each}}">
+                        </div>
+                        <div class="form-group col-8">
+                            <label>Biaya</label>
+                            <input type="text" name="biaya" class="form-control" placeholder="biaya"
+                                autocomplete="off" value="{{#each administrasi}}{{ biaya}}{{/each}}">
                         </div>
                     </div>
                     <input type="submit" value="Ubah" class="btn btn-primary btn-block mt-3">

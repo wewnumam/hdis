@@ -1,0 +1,109 @@
+<!-- Dropdown Card Example -->
+<div class="card mb-4">
+    <!-- Card Header - Dropdown -->
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h5 class="m-0 font-weight-bold text-danger">Administrasi</h5>
+         <!-- Large modal -->
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".adminstrasi-modal"><i
+                    class="fas fa-plus"></i> Tambah Administrasi</button>
+
+            <div class="modal fade adminstrasi-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <form action="/administrasi" method="post" class="m-5">
+                            <div class="form-row">
+                                <div class="form-group col-8">
+                                    <label>Tangggal Administrasi</label>
+                                    <input type="text" name="tglAdmin" class="form-control" placeholder="tanggal administrasi"
+                                        autocomplete="off">
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Pasien</label>
+                                    <select name="kodePasien" class="form-control">
+                                        <option selected>Pilih...</option>
+                                        {{#each pasien}}
+                                        <option value="{{ _id }}">{{ nama }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Obat</label>
+                                    <select name="kodeObat" class="form-control">
+                                        <option selected>Pilih...</option>
+                                        {{#each obat}}
+                                        <option value="{{ _id }}">{{ nama }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Resep</label>
+                                    <select name="kodeResep" class="form-control">
+                                        <option selected>Pilih...</option>
+                                        {{#each resep}}
+                                        <option value="{{ _id }}">{{ tglResep }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label>Diagnosa</label>
+                                    <select name="kodeDiagnosa" class="form-control">
+                                        <option selected>Pilih...</option>
+                                        {{#each diagnosa}}
+                                        <option value="{{ _id }}">{{ tglPeriksa }}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                 <div class="form-group col-6">
+                                    <label>Lama Menginap</label>
+                                    <input type="text" name="lamaInap" class="form-control" placeholder="lama menginap"
+                                        autocomplete="off">
+                                </div>
+                                 <div class="form-group col-6">
+                                    <label>Biaya</label>
+                                    <input type="text" name="biaya" class="form-control" placeholder="biaya"
+                                        autocomplete="off">
+                                </div>
+                            </div>
+                            <input type="submit" value="Tambah" class="btn btn-success btn-block mt-3">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card Body -->
+    <div class="card-body">
+        <!-- Table pasien-->
+        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Tanggal Administrasi</th>
+                    <th scope="col">Lama Menginap</th>
+                    <th scope="col">Biaya</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each administrasi}}
+                <tr>
+                    <th scope="col">{{incremented @index }}</th>
+                    <td>{{ tglAdmin }}</td>
+                    <td>{{ lamaInap }}</td>
+                    <td>{{ biaya }}</td>
+                    <td>
+                        <a href="/administrasi/{{ _id }}"><i
+                                class="float-left btn btn-sm bg-transparent fas fa-eye text-primary"></i></a>
+                        <form method="POST" action="/administrasi/{{ _id }}?_method=DELETE">
+                            <button type="submit" name="_method" class="btn btn-sm bg-transparent"><i
+                                    class="fas fa-trash text-danger"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
