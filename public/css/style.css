@@ -1,3 +1,10 @@
 * {
     font-family: 'Poppins', sans-serif;
 }
+
+.role-form {
+    height: 50px;
+    border-radius: 30px;
+    font-size: small;
+    color: gray;
+}

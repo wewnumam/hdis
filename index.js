@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const session = require('express-session')
 const xphbs = require('express-handlebars')
 const app = express()
 const port = 8000
@@ -16,6 +17,13 @@ mongoose.connect('mongodb://localhost:27017/rumahsakit', {
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('connected to database'))
+
+//use sessions for tracking logins
+app.use(session({
+    secret: 'suruh sana suruh sini tunggu gaji',
+    resave: true,
+    saveUninitialized: false
+}))
 
 // override method
 app.use(methodOverride('_method'))
@@ -57,6 +65,7 @@ app.use('/tindakan', require('./routes/tindakan'))
 app.use('/diagnosa', require('./routes/diagnosa'))
 app.use('/rm', require('./routes/rm'))
 app.use('/administrasi', require('./routes/administrasi'))
+app.use('/auth', require('./routes/auth'))
 
 // static file
 app.use(express.static(path.join(__dirname, 'public')))

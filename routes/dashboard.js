@@ -19,6 +19,7 @@ router.get('/', (req, res, next) => {
                             RekMed.find((err, rm) => {
                                 Administrasi.find((err, administrasi) => res.render('dashboard', {
                                     title: 'Dashboard',
+                                    user: req.session.user,
                                     pasien: pasien.length,
                                     dokter: dokter.length,
                                     perawat: perawat.length,
