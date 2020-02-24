@@ -34,6 +34,7 @@ router.get('/login', (req, res, next) => {
         })
         content = JSON.parse(JSON.stringify(content))
         res.render('login', {
+            user: req.session.user,
             title: 'Login'
         })
     })
@@ -67,6 +68,10 @@ router.post('/login', async (req, res) => {
             res.redirect('/auth/login')
         } else {
             req.session.user = content.filter(p => p.username==username)
+            req.session.role = String
+            req.session.user.forEach(element => {
+                req.session.role = element.role
+            });
             res.redirect('/')
         }
     })  

@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/rumahsakit', {
     useNewUrlParser: true,
     useFindAndModify: false,
-    useCreaitteIndex: true,
+    useCreateIndex: true,
     useUnifiedTopology: true
 })
 const db = mongoose.connection

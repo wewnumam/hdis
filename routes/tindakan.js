@@ -23,17 +23,24 @@ async function getTindakan(req, res, next) {
 
 // get all tindakan
 router.get('/', (req, res, next) => {
-    Tindakan.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Tindakan.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('tindakan', {
+                title  : 'Data Tindakan',
+                user: req.session.user,
+                tindakan: content
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('tindakan', {
-            title  : 'Data Tindakan',
-            tindakan: content
-        })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create tindakan

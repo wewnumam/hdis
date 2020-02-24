@@ -23,31 +23,46 @@ async function getdokter(req, res, next) {
 
 // get all dokter
 router.get('/', (req, res, next) => {
-    Dokter.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter' || req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Dokter.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('dokter', {
+                title : 'Data dokter',
+                user: req.session.user,
+                dokter: content
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('dokter', {
-            title : 'Data dokter',
-            dokter: content
-        })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single dokter
 router.get('/:id', (req, res, next) => {
-    Dokter.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter' || req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Dokter.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('detDokter', {
+                title : 'Detail Dokter',
+                user: req.session.user,
+                dokter: content.filter(c => c._id == req.params.id)
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('detDokter', {
-            title : 'Detail Dokter',
-            dokter: content.filter(c => c._id == req.params.id)
-        })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create dokter

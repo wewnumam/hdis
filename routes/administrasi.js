@@ -27,63 +27,78 @@ async function getAdministrasi(req, res, next) {
 
 // get all diagnosa
 router.get('/', (req, res, next) => {
-    Diagnosa.find((err, diagnosa) => {
-        diagnosa = JSON.parse(JSON.stringify(diagnosa))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Resep.find((err, resep) => {
-                resep = JSON.parse(JSON.stringify(resep))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    Administrasi.find((err, administrasi) => {
-                        administrasi = JSON.parse(JSON.stringify(administrasi))
-                            if (err) throw res.json({
-                                message: err.message
-                            })
-                            res.render('administrasi', {
-                                title: 'Data Rekam Medis',
-                                diagnosa: diagnosa,
-                                pasien: pasien,
-                                resep: resep,
-                                obat: obat,
-                                administrasi: administrasi
-                            })
+    if (req.session.user) {
+        if (req.session.role == 'dokter' || req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Diagnosa.find((err, diagnosa) => {
+            diagnosa = JSON.parse(JSON.stringify(diagnosa))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Resep.find((err, resep) => {
+                    resep = JSON.parse(JSON.stringify(resep))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        Administrasi.find((err, administrasi) => {
+                            administrasi = JSON.parse(JSON.stringify(administrasi))
+                                if (err) throw res.json({
+                                    message: err.message
+                                })
+                                res.render('administrasi', {
+                                    title: 'Data Rekam Medis',
+                                    user: req.session.user,
+                                    diagnosa: diagnosa,
+                                    pasien: pasien,
+                                    resep: resep,
+                                    obat: obat,
+                                    administrasi: administrasi
+                                })
+                        })
                     })
                 })
             })
         })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single diagnosa
 router.get('/:id', (req, res, next) => {
-    Diagnosa.find((err, diagnosa) => {
-        diagnosa = JSON.parse(JSON.stringify(diagnosa))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Resep.find((err, resep) => {
-                resep = JSON.parse(JSON.stringify(resep))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    Administrasi.find((err, administrasi) => {
-                        administrasi = JSON.parse(JSON.stringify(administrasi))
-                        if (err) throw res.json({
-                            message: err.message
-                        })
-                        res.render('detAdministrasi', {
-                            title: 'Detail Rekam Medis',
-                            diagnosa: diagnosa,
-                            pasien: pasien,
-                            resep: resep,
-                            obat: obat,
-                            administrasi: administrasi.filter(c => c._id == req.params.id)
+    if (req.session.user) {
+        if (req.session.role == 'dokter' || req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Diagnosa.find((err, diagnosa) => {
+            diagnosa = JSON.parse(JSON.stringify(diagnosa))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Resep.find((err, resep) => {
+                    resep = JSON.parse(JSON.stringify(resep))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        Administrasi.find((err, administrasi) => {
+                            administrasi = JSON.parse(JSON.stringify(administrasi))
+                            if (err) throw res.json({
+                                message: err.message
+                            })
+                            res.render('detAdministrasi', {
+                                title: 'Detail Rekam Medis',
+                                user: req.session.user,
+                                diagnosa: diagnosa,
+                                pasien: pasien,
+                                resep: resep,
+                                obat: obat,
+                                administrasi: administrasi.filter(c => c._id == req.params.id)
+                            })
                         })
                     })
                 })
             })
         })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create diagnosa

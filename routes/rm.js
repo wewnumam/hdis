@@ -27,63 +27,72 @@ async function getRM(req, res, next) {
 
 // get all rm
 router.get('/', (req, res, next) => {
-    Diagnosa.find((err, diagnosa) => {
-        diagnosa = JSON.parse(JSON.stringify(diagnosa))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Dokter.find((err, dokter) => {
-                dokter = JSON.parse(JSON.stringify(dokter))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    RekMed.find((err, rm) => {
-                        rm = JSON.parse(JSON.stringify(rm))
-                            if (err) throw res.json({
-                                message: err.message
-                            })
-                            res.render('rm', {
-                                title: 'Data Rekam Medis',
-                                diagnosa: diagnosa,
-                                pasien: pasien,
-                                dokter: dokter,
-                                obat: obat,
-                                rm: rm
-                            })
+    if (req.session.user) {
+        Diagnosa.find((err, diagnosa) => {
+            diagnosa = JSON.parse(JSON.stringify(diagnosa))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Dokter.find((err, dokter) => {
+                    dokter = JSON.parse(JSON.stringify(dokter))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        RekMed.find((err, rm) => {
+                            rm = JSON.parse(JSON.stringify(rm))
+                                if (err) throw res.json({
+                                    message: err.message
+                                })
+                                res.render('rm', {
+                                    title: 'Data Rekam Medis',
+                                    user: req.session.user,
+                                    diagnosa: diagnosa,
+                                    pasien: pasien,
+                                    dokter: dokter,
+                                    obat: obat,
+                                    rm: rm
+                                })
+                        })
                     })
                 })
             })
         })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single rm
 router.get('/:id', (req, res, next) => {
-    Diagnosa.find((err, diagnosa) => {
-        diagnosa = JSON.parse(JSON.stringify(diagnosa))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Dokter.find((err, dokter) => {
-                dokter = JSON.parse(JSON.stringify(dokter))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    RekMed.find((err, rm) => {
-                        rm = JSON.parse(JSON.stringify(rm))
-                        if (err) throw res.json({
-                            message: err.message
-                        })
-                        res.render('detRM', {
-                            title: 'Detail Rekam Medis',
-                            diagnosa: diagnosa,
-                            pasien: pasien,
-                            dokter: dokter,
-                            obat: obat,
-                            rm: rm.filter(c => c._id == req.params.id)
+    if (req.session.user) {
+        Diagnosa.find((err, diagnosa) => {
+            diagnosa = JSON.parse(JSON.stringify(diagnosa))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Dokter.find((err, dokter) => {
+                    dokter = JSON.parse(JSON.stringify(dokter))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        RekMed.find((err, rm) => {
+                            rm = JSON.parse(JSON.stringify(rm))
+                            if (err) throw res.json({
+                                message: err.message
+                            })
+                            res.render('detRM', {
+                                title: 'Detail Rekam Medis',
+                                user: req.session.user,
+                                diagnosa: diagnosa,
+                                pasien: pasien,
+                                dokter: dokter,
+                                obat: obat,
+                                rm: rm.filter(c => c._id == req.params.id)
+                            })
                         })
                     })
                 })
             })
         })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create rm

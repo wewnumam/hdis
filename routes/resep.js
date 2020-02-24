@@ -26,55 +26,70 @@ async function getResep(req, res, next) {
 
 // get all resep
 router.get('/', (req, res, next) => {
-    Resep.find((err, resep) => {
-        resep = JSON.parse(JSON.stringify(resep))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Dokter.find((err, dokter) => {
-                dokter = JSON.parse(JSON.stringify(dokter))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    if (err) throw res.json({
-                        message: err.message
-                    })
-                    res.render('resep', {
-                        title: 'Data Resep',
-                        resep: resep,
-                        pasien: pasien,
-                        dokter: dokter,
-                        obat: obat
+    if (req.session.user) {
+        if (req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Resep.find((err, resep) => {
+            resep = JSON.parse(JSON.stringify(resep))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Dokter.find((err, dokter) => {
+                    dokter = JSON.parse(JSON.stringify(dokter))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        if (err) throw res.json({
+                            message: err.message
+                        })
+                        res.render('resep', {
+                            title: 'Data Resep',
+                            user: req.session.user,
+                            resep: resep,
+                            pasien: pasien,
+                            dokter: dokter,
+                            obat: obat
+                        })
                     })
                 })
             })
         })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single resep
 router.get('/:id', (req, res, next) => {
-    Resep.find((err, resep) => {
-        resep = JSON.parse(JSON.stringify(resep))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Dokter.find((err, dokter) => {
-                dokter = JSON.parse(JSON.stringify(dokter))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    if (err) throw res.json({
-                        message: err.message
-                    })
-                    res.render('detResep', {
-                        title: 'Detail Resep',
-                        resep: resep.filter(c => c._id == req.params.id),
-                        pasien: pasien,
-                        dokter: dokter,
-                        obat: obat
+    if (req.session.user) {
+        if (req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Resep.find((err, resep) => {
+            resep = JSON.parse(JSON.stringify(resep))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Dokter.find((err, dokter) => {
+                    dokter = JSON.parse(JSON.stringify(dokter))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        if (err) throw res.json({
+                            message: err.message
+                        })
+                        res.render('detResep', {
+                            title: 'Detail Resep',
+                            user: req.session.user,
+                            resep: resep.filter(c => c._id == req.params.id),
+                            pasien: pasien,
+                            dokter: dokter,
+                            obat: obat
+                        })
                     })
                 })
             })
         })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create resep

@@ -23,31 +23,46 @@ async function getPerawat(req, res, next) {
 
 // get all perawat
 router.get('/', (req, res, next) => {
-    Perawat.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter' || req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Perawat.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('perawat', {
+                title  : 'Data Perawat',
+                user: req.session.user,
+                perawat: content
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('perawat', {
-            title  : 'Data Perawat',
-            perawat: content
-        })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single perawat
 router.get('/:id', (req, res, next) => {
-    Perawat.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter' || req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Perawat.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('detPerawat', {
+                title  : 'Detail perawat',
+                user: req.session.user,
+                perawat: content.filter(c => c._id == req.params.id)
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('detPerawat', {
-            title  : 'Detail perawat',
-            perawat: content.filter(c => c._id == req.params.id)
-        })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create perawat

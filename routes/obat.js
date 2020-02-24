@@ -23,31 +23,40 @@ async function getObat(req, res, next) {
 
 // get all obat
 router.get('/', (req, res, next) => {
-    Obat.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        Obat.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('obat', {
+                title: 'Data obat',
+                user: req.session.user,
+                obat: content
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('obat', {
-            title: 'Data obat',
-            obat: content
-        })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single obat
 router.get('/:id', (req, res, next) => {
-    Obat.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        Obat.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('detObat', {
+                title: 'Detail Obat',
+                user: req.session.user,
+                obat: content.filter(c => c._id == req.params.id)
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('detObat', {
-            title: 'Detail Obat',
-            obat: content.filter(c => c._id == req.params.id)
-        })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create obat

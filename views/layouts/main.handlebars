@@ -49,13 +49,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#useract"
                     aria-expanded="true" aria-controls="useract">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>{{#each user}}{{ username }}{{/each}}</span>
+                    <span>{{#each user}}{{ username }} <sup class="font-weight-bold text-danger">{{ role }}</sup>{{/each}}</span>
                 </a>
                 <div id="useract" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/auth/login"><i class="fas fa-sign-in-alt"></i> Login</a>
-                        <a class="collapse-item" href="/auth/login"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a class="collapse-item" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
             </li>

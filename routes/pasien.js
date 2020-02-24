@@ -23,31 +23,46 @@ async function getPasien(req, res, next) {
 
 // get all pasien
 router.get('/', (req, res, next) => {
-    Pasien.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter') {
+            return res.redirect('/')
+        }
+        Pasien.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('pasien', {
+                title : 'Data Pasien',
+                user: req.session.user,
+                pasien: content
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('pasien', {
-            title : 'Data Pasien',
-            pasien: content
-        })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single pasien
 router.get('/:id', (req, res, next) => {
-    Pasien.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter') {
+            return res.redirect('/')
+        }
+        Pasien.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('detPasien', {
+                title : 'Detail Pasien',
+                user: req.session.user,
+                pasien: content.filter(c => c._id == req.params.id)
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('detPasien', {
-            title : 'Detail Pasien',
-            pasien: content.filter(c => c._id == req.params.id)
-        })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create pasien

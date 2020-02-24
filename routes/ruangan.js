@@ -23,31 +23,46 @@ async function getRuangan(req, res, next) {
 
 // get all ruangan
 router.get('/', (req, res, next) => {
-    Ruangan.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter') {
+            return res.redirect('/')
+        }
+        Ruangan.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('ruangan', {
+                title  : 'Data ruangan',
+                user: req.session.user,
+                ruangan: content
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('ruangan', {
-            title  : 'Data ruangan',
-            ruangan: content
-        })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single ruangan
 router.get('/:id', (req, res, next) => {
-    Ruangan.find((err, content) => {
-        if (err) throw res.json({
-            message: err.message
+    if (req.session.user) {
+        if (req.session.role == 'dokter') {
+            return res.redirect('/')
+        }
+        Ruangan.find((err, content) => {
+            if (err) throw res.json({
+                message: err.message
+            })
+            content = JSON.parse(JSON.stringify(content))
+            res.render('detRuangan', {
+                title  : 'Detail Ruangan',
+                user: req.session.user,
+                ruangan: content.filter(c => c._id == req.params.id)
+            })
         })
-        content = JSON.parse(JSON.stringify(content))
-        res.render('detRuangan', {
-            title  : 'Detail Ruangan',
-            ruangan: content.filter(c => c._id == req.params.id)
-        })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create ruangan

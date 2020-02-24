@@ -28,71 +28,86 @@ async function getDiagnosa(req, res, next) {
 
 // get all diagnosa
 router.get('/', (req, res, next) => {
-    Diagnosa.find((err, diagnosa) => {
-        diagnosa = JSON.parse(JSON.stringify(diagnosa))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Dokter.find((err, dokter) => {
-                dokter = JSON.parse(JSON.stringify(dokter))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    Tindakan.find((err, tindakan) => {
-                        tindakan = JSON.parse(JSON.stringify(tindakan))
-                        Ruangan.find((err, ruangan) => {
-                            ruangan = JSON.parse(JSON.stringify(ruangan))
-                            if (err) throw res.json({
-                                message: err.message
-                            })
-                            res.render('diagnosa', {
-                                title: 'Data Diagnosa',
-                                diagnosa: diagnosa,
-                                pasien: pasien,
-                                dokter: dokter,
-                                obat: obat,
-                                tindakan: tindakan,
-                                ruangan: ruangan
+    if (req.session.user) {
+        if (req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Diagnosa.find((err, diagnosa) => {
+            diagnosa = JSON.parse(JSON.stringify(diagnosa))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Dokter.find((err, dokter) => {
+                    dokter = JSON.parse(JSON.stringify(dokter))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        Tindakan.find((err, tindakan) => {
+                            tindakan = JSON.parse(JSON.stringify(tindakan))
+                            Ruangan.find((err, ruangan) => {
+                                ruangan = JSON.parse(JSON.stringify(ruangan))
+                                if (err) throw res.json({
+                                    message: err.message
+                                })
+                                res.render('diagnosa', {
+                                    title: 'Data Diagnosa',
+                                    user: req.session.user,
+                                    diagnosa: diagnosa,
+                                    pasien: pasien,
+                                    dokter: dokter,
+                                    obat: obat,
+                                    tindakan: tindakan,
+                                    ruangan: ruangan
+                                })
                             })
                         })
                     })
                 })
             })
         })
-    })
-
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // get single diagnosa
 router.get('/:id', (req, res, next) => {
-    Diagnosa.find((err, diagnosa) => {
-        diagnosa = JSON.parse(JSON.stringify(diagnosa))
-        Pasien.find((err, pasien) => {
-            pasien = JSON.parse(JSON.stringify(pasien))
-            Dokter.find((err, dokter) => {
-                dokter = JSON.parse(JSON.stringify(dokter))
-                Obat.find((err, obat) => {
-                    obat = JSON.parse(JSON.stringify(obat))
-                    Tindakan.find((err, tindakan) => {
-                        tindakan = JSON.parse(JSON.stringify(tindakan))
-                        Ruangan.find((err, ruangan) => {
-                            ruangan = JSON.parse(JSON.stringify(ruangan))
-                            if (err) throw res.json({
-                                message: err.message
-                            })
-                            res.render('detDiagnosa', {
-                                title: 'Detail Diagnosa',
-                                diagnosa: diagnosa.filter(c => c._id == req.params.id),
-                                pasien: pasien,
-                                dokter: dokter,
-                                obat: obat,
-                                tindakan: tindakan,
-                                ruangan: ruangan
+    if (req.session.user) {
+        if (req.session.role == 'perawat') {
+            return res.redirect('/')
+        }
+        Diagnosa.find((err, diagnosa) => {
+            diagnosa = JSON.parse(JSON.stringify(diagnosa))
+            Pasien.find((err, pasien) => {
+                pasien = JSON.parse(JSON.stringify(pasien))
+                Dokter.find((err, dokter) => {
+                    dokter = JSON.parse(JSON.stringify(dokter))
+                    Obat.find((err, obat) => {
+                        obat = JSON.parse(JSON.stringify(obat))
+                        Tindakan.find((err, tindakan) => {
+                            tindakan = JSON.parse(JSON.stringify(tindakan))
+                            Ruangan.find((err, ruangan) => {
+                                ruangan = JSON.parse(JSON.stringify(ruangan))
+                                if (err) throw res.json({
+                                    message: err.message
+                                })
+                                res.render('detDiagnosa', {
+                                    title: 'Detail Diagnosa',
+                                    user: req.session.user,
+                                    diagnosa: diagnosa.filter(c => c._id == req.params.id),
+                                    pasien: pasien,
+                                    dokter: dokter,
+                                    obat: obat,
+                                    tindakan: tindakan,
+                                    ruangan: ruangan
+                                })
                             })
                         })
                     })
                 })
             })
         })
-    })
+    } else {
+        return res.redirect('/auth/login')
+    }
 })
 
 // create diagnosa
